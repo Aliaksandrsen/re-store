@@ -12,13 +12,17 @@ import './book-list.css';
 
 // оборачиваемый компонент без логики
 const BookList = (props) => {
-  const { books } = props;
+  const { books, onAddedToCart } = props;
   return (
     <ul className="book-list">
       {
         books.map((book) => {
           return (
-            <li key={book.id}><BookListItem book={book} /></li>
+            <li key={book.id}>
+              <BookListItem
+                book={book}
+                onAddedToCart={() => onAddedToCart(book.id)} />
+            </li>
           )
         })
       }
@@ -48,7 +52,7 @@ class BookListConteiner extends Component {
   }
 
   render() {
-    const { books, loading, error } = this.props;
+    const { books, loading, error, onAddedToCart } = this.props;
 
     if (error) {
       return <ErrorIndicator />;
@@ -59,11 +63,10 @@ class BookListConteiner extends Component {
     }
 
     return (
-      <BookList books={books} />
+      <BookList books={books} onAddedToCart={onAddedToCart} />
     );
   }
 }
-
 
 
 const mapStateToProps = (state) => {
@@ -95,7 +98,7 @@ const mapDispatchToProps = (dispatch, { bookstoreService }) => {
 
   return {
     fetchBooks: fetchBooks(bookstoreService, dispatch),
-    onAddedToCart: (id) => dispatch(bookAddedToCart(id))
+    onAddedToCart: (id) => dispatch(bookAddedToCart(id)),
   };
 };
 
