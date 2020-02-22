@@ -1,12 +1,17 @@
 import React from 'react';
 import './shopping-cart-table.css';
 import { connect } from 'react-redux';
-// import { onIncrice, onDecrease, onDelete } from '../../actions'
+import {
+  bookAddedToCart, 
+  bookRemoveFromCart,
+  allBooksRemoveFromCart,
+} from '../../actions'
 
 const ShoppingCartTable = ({ items, total, onIncrice, onDecrease, onDelete }) => {
 
   const renderRow = (item, index) => {
     const { id, title, count, total } = item;
+
     return (
       <tr key={id}>
         <td>{index + 1}</td>
@@ -15,17 +20,17 @@ const ShoppingCartTable = ({ items, total, onIncrice, onDecrease, onDelete }) =>
         <td>{total}</td>
         <td>
           <button
-            onClick={(id) => onDelete(id)}
+            onClick={() => onDelete(id)}
             className="btn btn-outline-danger btn-sm float-right">
             <i className="fa fa-trash-o" />
           </button>
           <button
-            onClick={(id) => onDecrease(id)}
+            onClick={() => onDecrease(id)}
             className="btn btn-outline-success btn-sm float-right">
             <i className="fa fa-plus-circle" />
           </button>
           <button
-            onClick={(id) => onIncrice(id)}
+            onClick={() => onIncrice(id)}
             className="btn btn-outline-warning btn-sm float-right">
             <i className="fa fa-minus-circle" />
           </button>
@@ -67,18 +72,18 @@ const mapStateToProps = ({ cartItems, orderTotal }) => {
   };
 };
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onIncrice: (id) => {
-      console.log(`Increase ${id}`);
+      dispatch(bookRemoveFromCart(id));
     },
 
     onDecrease: (id) => {
-      console.log(`Decrease ${id}`);
+      dispatch(bookAddedToCart(id));
     },
 
     onDelete: (id) => {
-      console.log(`Delete ${id}`);
+      dispatch(allBooksRemoveFromCart(id));
     }
   }
 };

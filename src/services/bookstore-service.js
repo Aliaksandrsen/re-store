@@ -22,7 +22,7 @@ export default class BookstoreService {
 
       setTimeout(() => {
         // error imitation
-        if (Math.random() > 0.5) {
+        if (Math.random() > 0.75) {
           reject(new Error('fee'))
         }
         // ---------------
