@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
-import BookListItem from '../book-list-item';
 import { connect } from 'react-redux';
 
+
+import BookListItem from '../book-list-item';
 import { withBookstoreService } from '../hoc';
-// import { booksLoaded, booksRequested, booksError } from '../../actions';
-import { fetchBooks, bookAddedToCart } from '../../actions';
+import {
+  booksRequested,
+  booksLoaded,
+  booksError,
+  bookAddedToCart,
+  // fetchBooks,
+} from '../../actions';
+
 import { compose } from '../../utils';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
 import './book-list.css';
+
 
 // оборачиваемый компонент без логики
 const BookList = (props) => {
@@ -32,24 +40,23 @@ const BookList = (props) => {
 
 class BookListConteiner extends Component {
 
-  // componentDidMount() {
-
-  //   const {
-  //     bookstoreService,
-  //     booksLoaded,
-  //     booksRequested,
-  //     booksError } = this.props;
-
-  //   booksRequested();
-  //   bookstoreService.getBooks()
-  //     .then((data) => booksLoaded(data))
-  //     .catch((err) => booksError(err));
-
-  // }
-
   componentDidMount() {
-    this.props.fetchBooks();
+    const {
+      bookstoreService,
+      booksLoaded,
+      booksRequested,
+      booksError } = this.props;
+
+    booksRequested();
+    bookstoreService.getBooks()
+      .then((data) => booksLoaded(data))
+      .catch((err) => booksError(err));
+
   }
+
+  // componentDidMount() {
+  //   this.props.fetchBooks();
+  // }
 
   render() {
     const { books, loading, error, onAddedToCart } = this.props;
@@ -81,29 +88,42 @@ const mapStateToProps = (state) => {
 // const mapDispatchToProps = (dispatch) => {
 //   return {
 //     booksLoaded: (newBooks) => {
-//       dispatch(booksLoaded(newBooks))
-//     }
-//   };
-// };
+//       dispatch(booksLoaded(newBooks));
+//     },
 
-// ! same as
-// const mapDispatchToProps = {
-//   booksLoaded,
-//   booksRequested,
-//   booksError,
+//     booksRequested: () => {
+//       dispatch(booksRequested());
+//     },
+
+//     booksError: (error) => {
+//       dispatch(booksError(error));
+//     },
+
+//     onAddedToCart: (bookId) => {
+//       dispatch(bookAddedToCart(bookId));
+//     },
+//   };
 // };
 // --------------------------------------------------------
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  
-  const { bookstoreService } = ownProps;
-
-  return {
-    fetchBooks: fetchBooks(bookstoreService, dispatch),
-    onAddedToCart: (id) => dispatch(bookAddedToCart(id)),
-  };
+const mapDispatchToProps = {
+  booksLoaded,
+  booksRequested,
+  booksError,
+  onAddedToCart: bookAddedToCart,
 };
 
+// --------------------------------------------------------
+// const mapDispatchToProps = (dispatch, ownProps) => {
+
+//   const { bookstoreService } = ownProps;
+
+//   return {
+//     fetchBooks: fetchBooks(bookstoreService, dispatch),
+//     onAddedToCart: (id) => dispatch(bookAddedToCart(id)),
+//   };
+// };
+// --------------------------------------------------------
 
 export default compose(
   withBookstoreService(),
