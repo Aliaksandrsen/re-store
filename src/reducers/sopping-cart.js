@@ -57,7 +57,8 @@ const updateCartItem = (book, item = {}, quantity) => {
     id = book.id,
     count = 0,
     title = book.title,
-    total = 0 } = item;
+    total = 0
+  } = item;
 
   return {
     id,
@@ -67,24 +68,11 @@ const updateCartItem = (book, item = {}, quantity) => {
   };
 };
 
-const sortingCart = (sortingLabel, cartItems, onAlfabet) => {
-
-  function compare1(a, b) {
-    if (a[sortingLabel] > b[sortingLabel]) return 1;
-    if (a[sortingLabel] === b[sortingLabel]) return 0;
-    if (a[sortingLabel] < b[sortingLabel]) return -1;
-  }
-
-  function compare2(a, b) {
-    if (a[sortingLabel] > b[sortingLabel]) return -1;
-    if (a[sortingLabel] === b[sortingLabel]) return 0;
-    if (a[sortingLabel] < b[sortingLabel]) return 1;
-  }
-
-  return (onAlfabet) ? cartItems.sort(compare1) : cartItems.sort(compare2);
+const getCompare = (sortingLabel, onAlfabet) => (a, b) => {
+  if (a[sortingLabel] > b[sortingLabel]) return onAlfabet ? 1 : -1;
+  if (a[sortingLabel] === b[sortingLabel]) return 0;
+  if (a[sortingLabel] < b[sortingLabel]) return onAlfabet ? -1 : 1;
 };
-
-
 
 const updateShoppingCart = (state, action) => {
   if (state === undefined) {
@@ -111,16 +99,15 @@ const updateShoppingCart = (state, action) => {
       return updateOrder(action.payload, state, -item.count);
 
     case 'SORT_BOOKS':
-      const newSortCart = sortingCart(action.payload, state.shoppingCart.cartItems, state.shoppingCart.onAlfabet);
+      const { shoppingCart, shoppingCart: { cartItems, onAlfabet } } = state;
+      const newSortCart = cartItems
+        .sort(getCompare(action.payload, onAlfabet));
 
-      const newShoppingCart = {
-        ...state.shoppingCart,
+      return {
+        ...shoppingCart,
         cartItems: newSortCart,
-        onAlfabet: !state.shoppingCart.onAlfabet,
+        onAlfabet: !onAlfabet,
       };
-
-      return newShoppingCart;
-
 
     default:
       return state.shoppingCart;
