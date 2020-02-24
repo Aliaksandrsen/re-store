@@ -11,12 +11,13 @@ const updateOrder = (bookId, state, quantity) => {
 
   const newcartItems = updateCartItems(cartItems, newItem, itemIndex);
   return {
-    orderTotal: updateOrderTotal(newcartItems), // !
+    orderTotal: updateOrderTotal(newcartItems),
     cartItems: newcartItems,
+    onAlfabet: true, //!
   };
 }
 
-const updateOrderTotal = (array) => { // !
+const updateOrderTotal = (array) => {
   return array.reduce((acc, item) => {
     return acc + item.total;
   }, 0);
@@ -66,6 +67,22 @@ const updateCartItem = (book, item = {}, quantity) => {
   };
 };
 
+const sortingCart = (sortingLabel, cartItems, onAlfabet) => {
+
+  function compare1(a, b) {
+    if (a[sortingLabel] > b[sortingLabel]) return 1;
+    if (a[sortingLabel] === b[sortingLabel]) return 0;
+    if (a[sortingLabel] < b[sortingLabel]) return -1;
+  }
+
+  function compare2(a, b) {
+    if (a[sortingLabel] > b[sortingLabel]) return -1;
+    if (a[sortingLabel] === b[sortingLabel]) return 0;
+    if (a[sortingLabel] < b[sortingLabel]) return 1;
+  }
+
+  return (onAlfabet) ? cartItems.sort(compare1) : cartItems.sort(compare2);
+};
 
 
 
@@ -92,6 +109,18 @@ const updateShoppingCart = (state, action) => {
       const itemIndex = state.shoppingCart.cartItems.findIndex(({ id }) => id === action.payload);
       const item = state.shoppingCart.cartItems[itemIndex];
       return updateOrder(action.payload, state, -item.count);
+
+    case 'SORT_BOOKS':
+      const newSortCart = sortingCart(action.payload, state.shoppingCart.cartItems, state.shoppingCart.onAlfabet);
+
+      const newShoppingCart = {
+        ...state.shoppingCart,
+        cartItems: newSortCart,
+        onAlfabet: !state.shoppingCart.onAlfabet,
+      };
+
+      return newShoppingCart;
+
 
     default:
       return state.shoppingCart;

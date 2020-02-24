@@ -5,13 +5,15 @@ import {
   bookAddedToCart,
   bookRemoveFromCart,
   allBooksRemoveFromCart,
+  sortCart,
 } from '../../actions'
 
-const ShoppingCartTable = ({ items, total, onIncrice, onDecrease, onDelete }) => {
+const ShoppingCartTable = ({ sortingFlag, items, total, onIncrice, onDecrease, onDelete, onSortCart }) => {
 
   const renderRow = (item, index) => {
-    const { id, title, count, total } = item;
+    let { id, title, count, total } = item;
 
+    
     return (
       <tr key={id}>
         <td>{index + 1}</td>
@@ -46,10 +48,11 @@ const ShoppingCartTable = ({ items, total, onIncrice, onDecrease, onDelete }) =>
         <thead>
           <tr>
             <th>#</th>
-            <th>Item</th>
-            <th>Count</th>
-            <th>Price</th>
-            <th>Action</th>
+            {/*onSortTable */}
+            <th onClick={() => onSortCart('title', sortingFlag)}>Item</th>
+            <th onClick={() => onSortCart('count', sortingFlag)}>Count</th>
+            <th onClick={() => onSortCart('total', sortingFlag)}>Price</th>
+            <th >Action</th>
           </tr>
         </thead>
 
@@ -69,6 +72,7 @@ const mapStateToProps = (state) => {
   return {
     items: state.shoppingCart.cartItems,
     total: state.shoppingCart.orderTotal,
+    sortingFlag: state.shoppingCart.onAlfabet,
   };
 };
 
@@ -92,6 +96,7 @@ const mapDispatchToProps = {
   onIncrice: bookRemoveFromCart,
   onDecrease: bookAddedToCart,
   onDelete: allBooksRemoveFromCart,
+  onSortCart: sortCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCartTable);

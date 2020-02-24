@@ -39,6 +39,15 @@ const allBooksRemoveFromCart = (bookId) => {
   }
 };
 
+const sortCart = (sortingItem) => {
+  return {
+    type: 'SORT_BOOKS',
+    payload: sortingItem,
+  }
+};
+
+
+
 
 // ! использование одной функции вместо нескольких
 // const fetchBooks = (bookstoreService, dispatch) => () => {
@@ -60,4 +69,6 @@ export {
   bookAddedToCart,
   bookRemoveFromCart,
   allBooksRemoveFromCart,
+
+  sortCart,
 };
