@@ -2,20 +2,27 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ShopHeader from '../shop-header';
 import { HomePage, CartPage } from '../pages';
+import BookListItemDetales from '../book-list-item-detales';
 
 import './app.css';
 
-const App = () => {
+const App = (props) => {
   return (
     <main role="main" className="container">
-      {/*  ! доделать */}
-      {/* <ShopHeader numItems={5} total={210} /> */}
       <ShopHeader />
       <Switch>
         <Route
           path="/"
           component={HomePage}
-          exact />
+          exact
+         />
+
+        <Route
+          path="/book-info"
+          render={() => {
+            return <BookListItemDetales />
+          }}
+        />
 
         <Route
           path="/cart"

@@ -1,15 +1,25 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import './book-list-item.css';
 
-const BookListItem = ({ book, onAddedToCart }) => {
-  const { title, author, price, coverImage } = book;
+const BookListItem = (props) => {
+  // console.log(props)
+  const { book, onAddedToCart, bookGetInfo } = props;
+  const { id, title, author, price, coverImage } = book;
   return (
     <div className="book-list-item">
       <div className="book-cover">
         <img src={coverImage} alt="cover" />
       </div>
       <div className="book-details">
-        <span className="book-title">{title}</span>
+        <Link to='book-info'>
+          <span className="book-title"
+            onClick={() => (bookGetInfo(id))}
+          >
+            {title}
+          </span>
+        </Link>
         <div className="book-author">{author}</div>
         <div className="book-price">${price}</div>
         <button

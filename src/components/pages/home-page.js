@@ -2,13 +2,19 @@ import React from 'react';
 import BookList from '../book-list';
 import ShoppingCartTable from '../shopping-cart-table/shopping-cart-table';
 
-const HomePage = () => {
+import { withRouter } from 'react-router-dom';
+
+const HomePage = ({ history }) => {
   return (
     <div>
-      <BookList />
+      <BookList
+        onItemSelected={(itemId) => {
+          const newPath = `books/${itemId}`
+          history.push(newPath);
+        }} />
       <ShoppingCartTable />
     </div>
   );
 };
 
-export default HomePage;
+export default withRouter(HomePage);

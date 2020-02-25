@@ -25,6 +25,13 @@ const bookAddedToCart = (bookId) => {
   };
 };
 
+const bookGetInfo = (bookId) => {
+  return {
+    type: 'BOOK_GET_INFO',
+    payload: bookId,
+  };
+};
+
 const bookRemoveFromCart = (bookId) => {
   return {
     type: 'BOOK_REMOVED_FROM_CART',
@@ -66,6 +73,7 @@ export {
   booksLoaded,
   booksError,
 
+  bookGetInfo,
   bookAddedToCart,
   bookRemoveFromCart,
   allBooksRemoveFromCart,

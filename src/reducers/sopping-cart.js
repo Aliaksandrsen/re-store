@@ -1,4 +1,3 @@
-
 const updateOrder = (bookId, state, quantity) => {
 
   const { booklist: { books }, shoppingCart: { cartItems } } = state;
@@ -68,20 +67,15 @@ const updateCartItem = (book, item = {}, quantity) => {
 };
 
 const sortingCart = (sortingLabel, cartItems, onAlfabet) => {
+  const newCartItems = [...cartItems];
 
-  function compare1(a, b) {
-    if (a[sortingLabel] > b[sortingLabel]) return 1;
+  function compare(a, b) {
+    if (a[sortingLabel] > b[sortingLabel]) return onAlfabet ? 1 : -1;
     if (a[sortingLabel] === b[sortingLabel]) return 0;
-    if (a[sortingLabel] < b[sortingLabel]) return -1;
+    if (a[sortingLabel] < b[sortingLabel]) return onAlfabet ? -1 : 1;
   }
 
-  function compare2(a, b) {
-    if (a[sortingLabel] > b[sortingLabel]) return -1;
-    if (a[sortingLabel] === b[sortingLabel]) return 0;
-    if (a[sortingLabel] < b[sortingLabel]) return 1;
-  }
-
-  return (onAlfabet) ? cartItems.sort(compare1) : cartItems.sort(compare2);
+  return newCartItems.sort(compare);
 };
 
 
