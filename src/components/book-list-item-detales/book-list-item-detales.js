@@ -18,7 +18,6 @@ import {
   } from '../../actions';
 import { withBookstoreService } from '../hoc';
 import { compose } from '../../utils';
-import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
 
 class BookListItemDetalesConteiner extends Component {
@@ -39,26 +38,26 @@ class BookListItemDetalesConteiner extends Component {
   
     render() {
 
-      const { books, loading, error, onAddedToCart, bookGetInfo, infoId, itemId, } = this.props;
+      const { books, loading, error, onAddedToCart, bookGetInfo, itemId, } = this.props;
   
       if (error) {
         return <ErrorIndicator />;
       }
   
       if (loading) {
-        return <Spinner />;
+        return null;
       }
   
       return (
-        <BookListItemDetales books={books} onAddedToCart={onAddedToCart} bookGetInfo={bookGetInfo} infoId={infoId} itemId={itemId} />
+        <BookListItemDetales books={books} onAddedToCart={onAddedToCart} bookGetInfo={bookGetInfo} itemId={itemId} />
       );
     }
   }
 
 
 const BookListItemDetales = (props) => {
-    console.log(props)
-    const { books, onAddedToCart, itemId, infoId } = props;
+    // console.log(props)
+    const { books, onAddedToCart, itemId} = props;
 
     // const book = books[infoId-1];
     const book = books[itemId - 1];

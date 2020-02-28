@@ -41,7 +41,6 @@ const BookList = (props) => {
 };
 
 class BookListConteiner extends Component {
-
   componentDidMount() {
     const {
       bookstoreService,
@@ -49,15 +48,32 @@ class BookListConteiner extends Component {
       booksRequested,
       booksError } = this.props;
 
-    booksRequested();
-    bookstoreService.getBooks()
-      .then((data) => booksLoaded(data))
-      .catch((err) => booksError(err));
+  
+console.log(this.props.books[0])
+    // if (!this.props.books[0]) {
+
+
+      booksRequested();
+      // console.log(this.props)
+
+      // if(this.props.books[0]){return}
+
+      bookstoreService.getBooks()
+        .then((data) => booksLoaded(data))
+        .catch((err) => booksError(err));
+    // }
+
+
+  }
+
+  componentDidUpdate() {
+    // console.log(this.props)
   }
 
 
   render() {
-    const { books, loading, error, onAddedToCart, bookGetInfo, infoId } = this.props;
+    // console.log(this.props)
+    const { books, loading, error, onAddedToCart, bookGetInfo } = this.props;
 
     if (error) {
       return <ErrorIndicator />;
@@ -68,7 +84,7 @@ class BookListConteiner extends Component {
     }
 
     return (
-      <BookList books={books} onAddedToCart={onAddedToCart} bookGetInfo={bookGetInfo} infoId={infoId} />
+      <BookList books={books} onAddedToCart={onAddedToCart} bookGetInfo={bookGetInfo} />
     );
   }
 }
@@ -79,7 +95,7 @@ const mapStateToProps = (state) => {
     books: state.booklist.books,
     loading: state.booklist.loading,
     error: state.booklist.error,
-    infoId: state.booklist.infoId,
+
   };
 };
 

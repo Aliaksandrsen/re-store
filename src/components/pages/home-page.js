@@ -5,14 +5,11 @@ import ShoppingCartTable from '../shopping-cart-table/shopping-cart-table';
 import { withRouter } from 'react-router-dom';
 
 const HomePage = () => {
+  // console.log(props)
   return (
     <div>
-      <BookList
-      // onItemSelected={(itemId) => {
-      // const newPath = `books/${itemId}`
-      // history.push(newPath);
-      // }} 
-      />
+      <BookList/>
+
       <ShoppingCartTable />
 
     </div>

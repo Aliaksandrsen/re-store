@@ -4,18 +4,27 @@ import ShopHeader from '../shop-header';
 import { HomePage, CartPage } from '../pages';
 import BookListItemDetales from '../book-list-item-detales';
 
+
+
+import { connect } from 'react-redux';
+
+
 import './app.css';
 
-const App = (props) => {
+const App = () => {
+  // console.log(props)
   return (
     <main role="main" className="container">
       <ShopHeader />
       <Switch>
         <Route
           path="/"
-          component={HomePage}
-        exact
+          render={() => {
+            return <HomePage />
+          }}
+          exact
         />
+
 
         <Route
           path="/book-info/:id"
@@ -23,10 +32,15 @@ const App = (props) => {
             // console.log(match)
             const { id } = match.params
             return (
-              < BookListItemDetales itemId={id} />
+              <>
+                <HomePage/>
+                < BookListItemDetales itemId={id} />
+              </>
             )
           }}
+          exact
         />
+
 
         <Route
           path="/cart"
@@ -38,4 +52,28 @@ const App = (props) => {
   );
 };
 
-export default App;
+// export default App;
+
+
+const mapStateToProps = (state) => {
+  return {
+    books: state.booklist.books,
+    loading: state.booklist.loading,
+    error: state.booklist.error,
+    infoId: state.booklist.infoId,
+  };
+};
+
+
+// const mapDispatchToProps = {
+//   onAddedToCart: bookAddedToCart,
+
+
+
+//   booksLoaded,
+//   booksRequested,
+//   booksError,
+//   bookGetInfo: bookGetInfo,
+// };
+
+export default connect(mapStateToProps)(App);
