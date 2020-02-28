@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import ShopHeader from '../shop-header';
 import { HomePage, CartPage } from '../pages';
 import BookListItemDetales from '../book-list-item-detales';
@@ -14,13 +14,17 @@ const App = (props) => {
         <Route
           path="/"
           component={HomePage}
-          exact
-         />
+        exact
+        />
 
         <Route
-          path="/book-info"
-          render={() => {
-            return <BookListItemDetales />
+          path="/book-info/:id"
+          render={({ match }) => {
+            // console.log(match)
+            const { id } = match.params
+            return (
+              < BookListItemDetales itemId={id} />
+            )
           }}
         />
 
@@ -28,6 +32,7 @@ const App = (props) => {
           path="/cart"
           component={CartPage}
         />
+        <Redirect to='/' />
       </Switch>
     </main>
   );

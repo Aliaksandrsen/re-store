@@ -13,7 +13,7 @@ const BookListItem = (props) => {
         <img src={coverImage} alt="cover" />
       </div>
       <div className="book-details">
-        <Link to='book-info'>
+        <Link to={`book-info/${id}`}>
           <span className="book-title"
             onClick={() => (bookGetInfo(id))}
           >
