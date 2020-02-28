@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 
 import './app.css';
 
-const App = () => {
+const App = (props) => {
   // console.log(props)
   return (
     <main role="main" className="container">
@@ -20,7 +20,7 @@ const App = () => {
         <Route
           path="/"
           render={() => {
-            return <HomePage />
+            return <HomePage {...props}/>
           }}
           exact
         />

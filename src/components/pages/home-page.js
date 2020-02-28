@@ -4,11 +4,11 @@ import ShoppingCartTable from '../shopping-cart-table/shopping-cart-table';
 
 import { withRouter } from 'react-router-dom';
 
-const HomePage = () => {
+const HomePage = (props) => {
   // console.log(props)
   return (
     <div>
-      <BookList/>
+      <BookList {...props}/>
 
       <ShoppingCartTable />
 
