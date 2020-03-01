@@ -2,11 +2,11 @@
 - ES 2019 features
 - React
 - Redux
-- Router
+- React Router
 - Bootstrap
 
 ## Demo 
-https://re-store.netlify.com/
+https://re-store-books.herokuapp.com/
 
 ## Instruction
 
