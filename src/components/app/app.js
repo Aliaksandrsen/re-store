@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import './app.css';
 
 const App = (props) => {
-  // console.log(props)
   return (
     <main role="main" className="container">
       <ShopHeader />
@@ -29,7 +28,6 @@ const App = (props) => {
         <Route
           path="/book-info/:id"
           render={({ match }) => {
-            // console.log(match)
             const { id } = match.params
             return (
               <>
@@ -52,8 +50,6 @@ const App = (props) => {
   );
 };
 
-// export default App;
-
 
 const mapStateToProps = (state) => {
   return {
@@ -64,16 +60,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-
-// const mapDispatchToProps = {
-//   onAddedToCart: bookAddedToCart,
-
-
-
-//   booksLoaded,
-//   booksRequested,
-//   booksError,
-//   bookGetInfo: bookGetInfo,
-// };
 
 export default connect(mapStateToProps)(App);

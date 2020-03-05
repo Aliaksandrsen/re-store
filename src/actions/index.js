@@ -54,21 +54,7 @@ const sortCart = (sortingItem) => {
 };
 
 
-
-
-// ! использование одной функции вместо нескольких
-// const fetchBooks = (bookstoreService, dispatch) => () => {
-//   dispatch(booksRequested());
-//   bookstoreService.getBooks()
-//     .then((data) => dispatch(booksLoaded(data)))
-//     .catch((err) => dispatch(booksError(err)));
-// };
-
-
-
 export {
-  // fetchBooks,
-
   booksRequested,
   booksLoaded,
   booksError,

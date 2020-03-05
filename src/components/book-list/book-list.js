@@ -18,7 +18,6 @@ import ErrorIndicator from '../error-indicator';
 import './book-list.css';
 
 
-// оборачиваемый компонент без логики
 const BookList = (props) => {
   const { books, onAddedToCart, bookGetInfo } = props;
   return (
@@ -48,31 +47,14 @@ class BookListConteiner extends Component {
       booksRequested,
       booksError } = this.props;
 
-  
-console.log(this.props.books[0])
-    // if (!this.props.books[0]) {
-
-
       booksRequested();
-      // console.log(this.props)
-
-      // if(this.props.books[0]){return}
 
       bookstoreService.getBooks()
         .then((data) => booksLoaded(data))
         .catch((err) => booksError(err));
-    // }
-
-
   }
-
-  componentDidUpdate() {
-    // console.log(this.props)
-  }
-
 
   render() {
-    // console.log(this.props)
     const { books, loading, error, onAddedToCart, bookGetInfo } = this.props;
 
     if (error) {

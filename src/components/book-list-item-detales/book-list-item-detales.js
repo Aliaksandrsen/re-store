@@ -56,10 +56,7 @@ class BookListItemDetalesConteiner extends Component {
 
 
 const BookListItemDetales = (props) => {
-    // console.log(props)
     const { books, onAddedToCart, itemId} = props;
-
-    // const book = books[infoId-1];
     const book = books[itemId - 1];
 
     const { title, author, price, coverImage, description } = book;
@@ -82,7 +79,6 @@ const BookListItemDetales = (props) => {
                     <div className="book-description_detales">${description}</div>
                     <button
                         className="btn btn-info add-to-cart"
-                        // onClick={() => onAddedToCart(infoId)}
                         onClick={() => onAddedToCart(+itemId)}
                         >
                         Add to cart
@@ -92,7 +88,6 @@ const BookListItemDetales = (props) => {
         </>
     );
 };
-
 
 
 const mapStateToProps = (state) => {
@@ -107,17 +102,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     onAddedToCart: bookAddedToCart,
-
-
-
     booksLoaded,
     booksRequested,
     booksError,
     bookGetInfo: bookGetInfo,
 };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(BookListItemDetalesConteiner);
-
 
 
 export default compose(
