@@ -56,7 +56,6 @@ const mapStateToProps = (state) => {
     books: state.booklist.books,
     loading: state.booklist.loading,
     error: state.booklist.error,
-    infoId: state.booklist.infoId,
   };
 };
 

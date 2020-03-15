@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 
 
 import BookListItem from '../book-list-item';
 import { withBookstoreService } from '../hoc';
 import {
-  booksRequested,
-  booksLoaded,
-  booksError,
+  fetchBooks,
   bookAddedToCart,
-  bookGetInfo,
 } from '../../actions';
 
 import { compose } from '../../utils';
@@ -19,7 +17,7 @@ import './book-list.css';
 
 
 const BookList = (props) => {
-  const { books, onAddedToCart, bookGetInfo } = props;
+  const { books, onAddedToCart } = props;
   return (
     <ul className="book-list">
       {
@@ -29,7 +27,6 @@ const BookList = (props) => {
               <BookListItem
                 book={book}
                 onAddedToCart={() => onAddedToCart(book.id)}
-                bookGetInfo={() => bookGetInfo(book.id)}
               />
             </li>
           )
@@ -41,21 +38,13 @@ const BookList = (props) => {
 
 class BookListConteiner extends Component {
   componentDidMount() {
-    const {
-      bookstoreService,
-      booksLoaded,
-      booksRequested,
-      booksError } = this.props;
+    const { fetchBooks } = this.props;
 
-      booksRequested();
-
-      bookstoreService.getBooks()
-        .then((data) => booksLoaded(data))
-        .catch((err) => booksError(err));
+    fetchBooks();
   }
 
   render() {
-    const { books, loading, error, onAddedToCart, bookGetInfo } = this.props;
+    const { books, loading, error, onAddedToCart } = this.props;
 
     if (error) {
       return <ErrorIndicator />;
@@ -66,28 +55,35 @@ class BookListConteiner extends Component {
     }
 
     return (
-      <BookList books={books} onAddedToCart={onAddedToCart} bookGetInfo={bookGetInfo} />
+      <BookList books={books} onAddedToCart={onAddedToCart} />
     );
   }
 }
 
 
 const mapStateToProps = (state) => {
+  const { booklist: { books, loading, error } } = state;
+  console.log(state)
   return {
-    books: state.booklist.books,
-    loading: state.booklist.loading,
-    error: state.booklist.error,
-
+    books,
+    loading,
+    error,
   };
 };
 
 
-const mapDispatchToProps = {
-  booksLoaded,
-  booksRequested,
-  booksError,
-  onAddedToCart: bookAddedToCart,
-  bookGetInfo: bookGetInfo,
+const mapDispatchToProps = (dispatch, { bookstoreService }) => {
+
+  // return bindActionCreators({
+  //   fetchBooks: fetchBooks(bookstoreService), // this function will prossess by THUNK
+  //   onAddedToCart: bookAddedToCart,
+  //   bookGetInfo: bookGetInfo,
+  // }, dispatch);
+
+  return {
+    fetchBooks: () => dispatch(fetchBooks(bookstoreService)()), // this function will prossess by THUNK
+    onAddedToCart: (id) => dispatch(bookAddedToCart(id)),
+  };
 };
 
 export default compose(

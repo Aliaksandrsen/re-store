@@ -68,12 +68,12 @@ export default class BookstoreService {
 
       setTimeout(() => {
         // error imitation
-        if (Math.random() > 0.95) {
-          reject(new Error('fee'))
-        }
+        // if (Math.random() > 0.95) {
+          // reject(new Error('fee'))
+        // }
         // ---------------
         resolve(this.data)
-      }, 700);
+      }, 2000);
     });
   }
 }
