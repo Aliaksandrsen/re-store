@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import './book-list-item.css';
 
 const BookListItem = (props) => {
-  // console.log(props)
-  const { book, onAddedToCart, bookGetInfo } = props;
+  const { book, onAddedToCart } = props;
   const { id, title, author, price, coverImage } = book;
   return (
     <div className="book-list-item">
@@ -15,7 +14,6 @@ const BookListItem = (props) => {
       <div className="book-details">
         <Link to={`book-info/${id}`}>
           <span className="book-title"
-            onClick={() => (bookGetInfo(id))}
           >
             {title}
           </span>

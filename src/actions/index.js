@@ -54,10 +54,19 @@ const sortCart = (sortingItem) => {
 };
 
 
+const fetchBooks = (bookstoreService) => () => (dispatch) => {
+  dispatch(booksRequested());
+  bookstoreService.getBooks()
+    .then(data => dispatch(booksLoaded(data)))
+    .catch(err => dispatch(booksError(err)));
+};
+
+
 export {
   booksRequested,
   booksLoaded,
   booksError,
+  fetchBooks,
 
   bookGetInfo,
   bookAddedToCart,

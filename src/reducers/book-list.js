@@ -10,13 +10,9 @@ const updateBookList = (state, action) => {
   switch (action.type) {
     case 'FETCH_BOOKS_REQUEST':
       return {
-        // тк использует один способ доступа к данным меняем здесь
-        // books: [],
         books: state.booklist.books || [],
-        // loading: true,
         loading: state.booklist.loading,
         error: null,
-        infoId: null,
       };
 
     case 'FETCH_BOOKS_SUCCESS':

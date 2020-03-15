@@ -8,13 +8,7 @@ import {
   bookAddedToCart,
 } from '../../actions';
 
-
-import {
-  booksRequested,
-  booksLoaded,
-  booksError,
-  bookGetInfo,
-} from '../../actions';
+import { fetchBooks } from '../../actions';
 import { withBookstoreService } from '../hoc';
 import { compose } from '../../utils';
 import ErrorIndicator from '../error-indicator';
@@ -22,30 +16,16 @@ import ErrorIndicator from '../error-indicator';
 class BookListItemDetalesConteiner extends Component {
 
   componentDidMount() {
-    const {
-      bookstoreService,
-      booksLoaded,
-      booksRequested,
-      booksError } = this.props;
-
-    booksRequested();
-    bookstoreService.getBooks()
-      .then((data) => booksLoaded(data))
-      .catch((err) => booksError(err));
+    const { fetchBooks } = this.props;
+    fetchBooks();
   }
 
-
   render() {
+    const { books, loading, error, onAddedToCart, bookGetInfo, itemId } = this.props;
 
-    const { books, loading, error, onAddedToCart, bookGetInfo, itemId, } = this.props;
+    if (error) { return <ErrorIndicator /> }
 
-    if (error) {
-      return <ErrorIndicator />;
-    }
-
-    if (loading) {
-      return null;
-    }
+    if (loading) { return null }
 
     return (
       <BookListItemDetales books={books} onAddedToCart={onAddedToCart} bookGetInfo={bookGetInfo} itemId={itemId} />
@@ -89,25 +69,22 @@ const BookListItemDetales = (props) => {
 };
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ booklist: { books, loading, error } }) => {
   return {
-    books: state.booklist.books,
-    loading: state.booklist.loading,
-    error: state.booklist.error,
+    books,
+    loading,
+    error,
   };
 };
 
 
 const mapDispatchToProps = {
   onAddedToCart: bookAddedToCart,
-  booksLoaded,
-  booksRequested,
-  booksError,
-  bookGetInfo: bookGetInfo,
+  fetchBooks,
 };
 
 
 export default compose(
   withBookstoreService(),
   connect(mapStateToProps, mapDispatchToProps),
-)(BookListItemDetalesConteiner); // ! use BookListItemDetalesConteiner not BookListItemDetales
+)(BookListItemDetalesConteiner);
