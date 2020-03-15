@@ -42,16 +42,10 @@ const BookList = (props) => {
 class BookListConteiner extends Component {
   componentDidMount() {
     const {
-      bookstoreService,
-      booksLoaded,
       booksRequested,
-      booksError } = this.props;
+    } = this.props;
 
       booksRequested();
-
-      bookstoreService.getBooks()
-        .then((data) => booksLoaded(data))
-        .catch((err) => booksError(err));
   }
 
   render() {
@@ -72,12 +66,11 @@ class BookListConteiner extends Component {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({booklist: {books, loading, error}}) => {
   return {
-    books: state.booklist.books,
-    loading: state.booklist.loading,
-    error: state.booklist.error,
-
+    books,
+    loading,
+    error,
   };
 };
 
