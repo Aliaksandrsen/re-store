@@ -1,3 +1,5 @@
+import store from '../store'; // for thunk example only
+
 const booksRequested = () => {
   return {
     type: 'FETCH_BOOKS_REQUEST',
@@ -54,12 +56,42 @@ const sortCart = (sortingItem) => {
 };
 
 
-const fetchBooks = (bookstoreService) => () => (dispatch) => {
+const fetchBooks = (bookstoreService) => (dispatch) => {
   dispatch(booksRequested());
   bookstoreService.getBooks()
     .then(data => dispatch(booksLoaded(data)))
     .catch(err => dispatch(booksError(err)));
 };
+
+
+// ================================
+// example how thunk work 
+// return not object (return function)
+const myAction = (dispatch) => {
+  setTimeout(() => dispatch({
+    type: 'DELAYED_ACTION',
+  }), 3000);
+};
+
+store.dispatch(myAction);
+//TODO смотреть работу в redux devtools
+// ================================
+
+// 1) refactor to actionCreator
+const myActionCreator = () => (dispatch) => {
+  setTimeout(() => dispatch({
+    type: 'DELAYED_ACTION_CREATOR_1',
+  }), 4000);
+};
+store.dispatch(myActionCreator());
+
+// 2) refactor to actionCreator (получаем возможность передавать параметры внутрь)
+const delayedActionCreator = (timeout) => (dispatch) => {
+  setTimeout(() => dispatch({
+    type: 'DELAYED_ACTION_CREATOR_2',
+  }), timeout);
+};
+store.dispatch(delayedActionCreator(5000));
 
 
 export {
