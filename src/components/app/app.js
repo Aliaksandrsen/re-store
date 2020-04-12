@@ -1,13 +1,10 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import ShopHeader from '../shop-header';
 import { HomePage, CartPage } from '../pages';
 import BookListItemDetales from '../book-list-item-detales';
-
-
-
-import { connect } from 'react-redux';
-
 
 import './app.css';
 
@@ -24,7 +21,6 @@ const App = (props) => {
           exact
         />
 
-
         <Route
           path="/book-info/:id"
           render={({ match }) => {
@@ -38,7 +34,6 @@ const App = (props) => {
           }}
           exact
         />
-
 
         <Route
           path="/cart"
@@ -56,7 +51,6 @@ const mapStateToProps = (state) => {
     books: state.booklist.books,
     loading: state.booklist.loading,
     error: state.booklist.error,
-    infoId: state.booklist.infoId,
   };
 };
 

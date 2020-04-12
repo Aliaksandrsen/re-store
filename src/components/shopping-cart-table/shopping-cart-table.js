@@ -21,19 +21,19 @@ const ShoppingCartTable = ({ items, total, onIncrice, onDecrease, onDelete, onSo
         <td>{total}</td>
         <td>
           <button
-            onClick={() => onDelete(id)}
-            className="btn btn-outline-danger btn-sm float-right">
-            <i className="fa fa-trash-o" />
-          </button>
-          <button
             onClick={() => onDecrease(id)}
-            className="btn btn-outline-success btn-sm float-right">
+            className="btn btn-outline-success btn-sm ">
             <i className="fa fa-plus-circle" />
           </button>
           <button
             onClick={() => onIncrice(id)}
-            className="btn btn-outline-warning btn-sm float-right">
+            className="btn btn-outline-warning btn-sm ">
             <i className="fa fa-minus-circle" />
+          </button>
+          <button
+            onClick={() => onDelete(id)}
+            className="btn btn-outline-danger btn-sm ">
+            <i className="fa fa-trash-o" />
           </button>
         </td>
       </tr>
@@ -46,11 +46,17 @@ const ShoppingCartTable = ({ items, total, onIncrice, onDecrease, onDelete, onSo
       <table className="table">
         <thead>
           <tr>
-            <th>#</th>
-            <th onClick={() => onSortCart('title')}>Item</th>
-            <th onClick={() => onSortCart('count')}>Count</th>
-            <th onClick={() => onSortCart('total')}>Price</th>
-            <th >Action</th>
+            <th>№</th>
+            <th>
+              <span className="sortable" onClick={() => onSortCart('title')}>Item</span>
+            </th>
+            <th>
+              <span className="sortable" onClick={() => onSortCart('count')}>Count</span>
+            </th>
+            <th className="sortable">
+              <span className="sortable" onClick={() => onSortCart('total')}>Price</span>
+            </th>
+            <th>Action</th>
           </tr>
         </thead>
 
