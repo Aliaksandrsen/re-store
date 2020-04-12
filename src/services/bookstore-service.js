@@ -67,11 +67,6 @@ export default class BookstoreService {
     return new Promise((resolve, reject) => {
 
       setTimeout(() => {
-        // error imitation
-        // if (Math.random() > 0.95) {
-          // reject(new Error('fee'))
-        // }
-        // ---------------
         resolve(this.data)
       }, 2000);
     });

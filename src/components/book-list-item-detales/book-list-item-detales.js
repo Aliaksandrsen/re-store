@@ -68,7 +68,6 @@ const BookListItemDetales = (props) => {
   );
 };
 
-
 const mapStateToProps = ({ booklist: { books, loading, error } }) => {
   return {
     books,
@@ -77,12 +76,13 @@ const mapStateToProps = ({ booklist: { books, loading, error } }) => {
   };
 };
 
+const mapDispatchToProps = (dispatch, { bookstoreService }) => {
 
-const mapDispatchToProps = {
-  onAddedToCart: bookAddedToCart,
-  fetchBooks,
+  return {
+    fetchBooks: () => dispatch(fetchBooks(bookstoreService)), // this function will prossess by THUNK
+    onAddedToCart: (id) => dispatch(bookAddedToCart(id)),
+  };
 };
-
 
 export default compose(
   withBookstoreService(),
