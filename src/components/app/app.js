@@ -5,7 +5,6 @@ import { HomePage, CartPage } from '../pages';
 import BookListItemDetales from '../book-list-item-detales';
 
 
-
 import { connect } from 'react-redux';
 
 

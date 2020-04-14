@@ -48,9 +48,9 @@ const BookListItemDetales = (props) => {
           <i className="fa fa-times close-icon" aria-hidden="true"></i>
         </Link>
 
-        <div className="book-cover_detales">
-          <img src={coverImage} alt="cover" />
-        </div>
+        {/* <div className="book-cover_detales"> */}
+          <img className="img_style" src={coverImage} alt="cover" />
+        {/* </div> */}
         <div className="book-details_detales">
           <span className="book-title_detales">{title}</span>
           <div className="book-author_detales">{author}</div>

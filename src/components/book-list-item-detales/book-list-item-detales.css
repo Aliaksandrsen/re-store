@@ -9,11 +9,11 @@
 }
 
 .modal {
-  /* opacity: 100%; */
-  top: 100px;
-  left: calc(50% - 400px);
-  width: 800px;
-  height: 450px;
+  position: absolute;
+  top: 5%;
+  left: 10%;
+  width: 80%;
+  height: auto;
   padding: 50px;
   border-radius: 20px;
   background-color: #ffffff;
@@ -26,10 +26,22 @@
 }
 
 .book-list-item_detales {
-  
   display: flex;
   margin: 15px 0;
 }
+
+@media only screen and (max-width: 768px) {
+  .book-list-item_detales {
+    flex-direction: column;
+  }
+}
+
+.img_style {
+  width: 120px;
+  height: 160px;
+  padding: 10px;
+}
+
 
 .book-list-item_detales .book-cover_detales {
   flex-shrink: 0;
@@ -44,7 +56,6 @@
 .book-list-item_detales .book-details_detales {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding-bottom: 10px;
   align-items: flex-start;
 }
