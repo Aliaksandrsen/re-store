@@ -2,7 +2,6 @@ import React from 'react';
 import BookList from '../book-list';
 import ShoppingCartTable from '../shopping-cart-table/shopping-cart-table';
 
-import { withRouter } from 'react-router-dom';
 
 const HomePage = (props) => {
   return (
@@ -15,4 +14,4 @@ const HomePage = (props) => {
   );
 };
 
-export default withRouter(HomePage);
+export default HomePage;

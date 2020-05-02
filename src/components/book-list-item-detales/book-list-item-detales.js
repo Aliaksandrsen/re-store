@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './book-list-item-detales.css';
 
-import { Link } from 'react-router-dom';
+import { Link, withRouter, useParams } from 'react-router-dom';
 
 import {
   bookAddedToCart,
@@ -14,7 +14,6 @@ import { compose } from '../../utils';
 import ErrorIndicator from '../error-indicator';
 
 class BookListItemDetalesConteiner extends Component {
-
   componentDidMount() {
     const { fetchBooks } = this.props;
     fetchBooks();
@@ -35,8 +34,10 @@ class BookListItemDetalesConteiner extends Component {
 
 
 const BookListItemDetales = (props) => {
-  const { books, onAddedToCart, itemId } = props;
-  const book = books[itemId - 1];
+
+  const { id } = useParams(); // получаем из URL
+  const { books, onAddedToCart } = props;
+  const book = books[id - 1];
 
   const { title, author, price, coverImage, description } = book;
   return (
@@ -58,7 +59,7 @@ const BookListItemDetales = (props) => {
           <div className="book-description_detales">${description}</div>
           <button
             className="btn btn-info add-to-cart"
-            onClick={() => onAddedToCart(+itemId)}
+            onClick={() => onAddedToCart(+id)}
           >
             Add to cart
           </button>

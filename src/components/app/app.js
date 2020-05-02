@@ -15,35 +15,24 @@ const App = (props) => {
     <main role="main" className="container">
       <ShopHeader />
       <Switch>
-        <Route
-          path="/"
-          render={() => {
-            return <HomePage {...props}/>
-          }}
-          exact
-        />
 
-        <Route
-          path="/book-info/:id"
-          render={({ match }) => {
-            const { id } = match.params
-            return (
-              <>
-                <HomePage/>
-                < BookListItemDetales itemId={id} />
-              </>
-            )
-          }}
-          exact
-        />
+        <Route path="/" exact >
+          <HomePage {...props} />
+        </Route>
 
-        <Route
-          path="/cart"
-          component={CartPage}
-        />
+        <Route path="/book-info/:id" exact>
+            <HomePage />
+            <BookListItemDetales />
+        </Route>
+
+        <Route path="/cart" ß>
+          <CartPage />
+        </Route>
+
         <Redirect to='/' />
+
       </Switch>
-    </main>
+    </main >
   );
 };
 
