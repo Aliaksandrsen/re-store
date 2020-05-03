@@ -29,13 +29,6 @@ const updateBookList = (state, action) => {
         error: action.payload,
       };
 
-    case 'BOOK_GET_INFO':
-      return {
-        books: state.booklist.books,
-        loading: false,
-        error: null,
-      };
-
     default:
       return state.booklist;
   };

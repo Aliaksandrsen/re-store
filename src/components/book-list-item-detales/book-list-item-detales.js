@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import './book-list-item-detales.css';
 
-import { Link, withRouter, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import {
   bookAddedToCart,
@@ -13,33 +13,29 @@ import { withBookstoreService } from '../hoc';
 import { compose } from '../../utils';
 import ErrorIndicator from '../error-indicator';
 
-class BookListItemDetalesConteiner extends Component {
-  componentDidMount() {
-    const { fetchBooks } = this.props;
-    fetchBooks();
-  }
 
-  render() {
-    const { books, loading, error, onAddedToCart, bookGetInfo, itemId } = this.props;
+const BookListItemDetalesConteiner = (props) => {
+  const { books, loading, error, onAddedToCart, fetchForBooks } = props;
+  // useEffect(() => {
+  //   fetchForBooks();
+  // }, []);
 
-    if (error) { return <ErrorIndicator /> }
+  if (error) { return <ErrorIndicator /> }
 
-    if (loading) { return null }
+  if (loading) { return null }
 
-    return (
-      <BookListItemDetales books={books} onAddedToCart={onAddedToCart} bookGetInfo={bookGetInfo} itemId={itemId} />
-    );
-  }
+  return (
+    <BookListItemDetales books={books} onAddedToCart={onAddedToCart} />
+  );
 }
 
 
 const BookListItemDetales = (props) => {
-
   const { id } = useParams(); // получаем из URL
   const { books, onAddedToCart } = props;
   const book = books[id - 1];
-
   const { title, author, price, coverImage, description } = book;
+  
   return (
     <>
       <div className="backGround"></div>
@@ -49,18 +45,18 @@ const BookListItemDetales = (props) => {
           <i className="fa fa-times close-icon" aria-hidden="true"></i>
         </Link>
 
-        {/* <div className="book-cover_detales"> */}
-          <img className="img_style" src={coverImage} alt="cover" />
-        {/* </div> */}
+        <img className="img_style" src={coverImage} alt="cover" />
+
         <div className="book-details_detales">
           <span className="book-title_detales">{title}</span>
+
           <div className="book-author_detales">{author}</div>
+
           <div className="book-price_detales">${price}</div>
+
           <div className="book-description_detales">${description}</div>
-          <button
-            className="btn btn-info add-to-cart"
-            onClick={() => onAddedToCart(+id)}
-          >
+
+          <button className="btn btn-info add-to-cart" onClick={() => onAddedToCart(+id)}>
             Add to cart
           </button>
         </div>
@@ -69,7 +65,8 @@ const BookListItemDetales = (props) => {
   );
 };
 
-const mapStateToProps = ({ booklist: { books, loading, error } }) => {
+const mapStateToProps = (state) => {
+  const { booklist: { books, loading, error } } = state;
   return {
     books,
     loading,
@@ -78,9 +75,8 @@ const mapStateToProps = ({ booklist: { books, loading, error } }) => {
 };
 
 const mapDispatchToProps = (dispatch, { bookstoreService }) => {
-
   return {
-    fetchBooks: () => dispatch(fetchBooks(bookstoreService)), // this function will prossess by THUNK
+    fetchForBooks: () => dispatch(fetchBooks(bookstoreService)), // this function will prossess by THUNK
     onAddedToCart: (id) => dispatch(bookAddedToCart(id)),
   };
 };

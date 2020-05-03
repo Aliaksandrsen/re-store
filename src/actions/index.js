@@ -1,4 +1,4 @@
-import store from '../store'; // for thunk example only
+// import store from '../store'; // for thunk example only
 
 const booksRequested = () => {
   return {
@@ -24,13 +24,6 @@ const bookAddedToCart = (bookId) => {
   return {
     type: 'BOOK_ADDED_TO_CART',
     payload: bookId
-  };
-};
-
-const bookGetInfo = (bookId) => {
-  return {
-    type: 'BOOK_GET_INFO',
-    payload: bookId,
   };
 };
 
@@ -63,8 +56,8 @@ const fetchBooks = (bookstoreService) => (dispatch) => {
     .catch(err => dispatch(booksError(err)));
 };
 
-
-// ================================
+/* 
+// ?============================================== эксперименты
 // example how thunk work 
 // return not object (return function)
 const myAction = (dispatch) => {
@@ -92,15 +85,12 @@ const delayedActionCreator = (timeout) => (dispatch) => {
   }), timeout);
 };
 store.dispatch(delayedActionCreator(5000));
-
+// ?=============================================================
+ */
 
 export {
-  booksRequested,
-  booksLoaded,
-  booksError,
   fetchBooks,
 
-  bookGetInfo,
   bookAddedToCart,
   bookRemoveFromCart,
   allBooksRemoveFromCart,
