@@ -2,22 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import './shop-header.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const ShopHeader = (props) => {
   const { numItems, total } = props;
 
   return (
     <header className="shop-header row">
-      <Link to="/">
+      <NavLink exact to="/" activeClassName="selected">
         <div className="logo text-dark">ReStore</div>
-      </Link>
-      <Link to="/cart">
+      </NavLink>
+      <NavLink to="/cart" activeClassName="selected">
         <div className="shopping-cart">
           <i className="cart-icon fa fa-shopping-cart" />
           {numItems} items (${total})
         </div>
-      </Link>
+      </NavLink>
     </header>
   );
 };
