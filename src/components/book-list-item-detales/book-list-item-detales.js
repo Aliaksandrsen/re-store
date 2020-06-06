@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import './book-list-item-detales.css';
 
@@ -15,10 +15,7 @@ import ErrorIndicator from '../error-indicator';
 
 
 const BookListItemDetalesConteiner = (props) => {
-  const { books, loading, error, onAddedToCart, fetchForBooks } = props;
-  // useEffect(() => {
-  //   fetchForBooks();
-  // }, []);
+  const { books, loading, error, onAddedToCart } = props;
 
   if (error) { return <ErrorIndicator /> }
 
