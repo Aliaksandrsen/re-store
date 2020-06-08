@@ -37,7 +37,7 @@ const BookListConteiner = (props) => {
 
   useEffect(() => {
     fetchForBooks();
-  }, [])
+  }, [fetchForBooks])
 
   if (error) {
     return <ErrorIndicator />;
